@@ -55,7 +55,7 @@ st.set_page_config(page_title="Parali AI", page_icon="🌾")
 st.title("🌾 Parali AI - Smart Reuse Recommendation")
 
 soil = st.selectbox("Select Soil Type", ["Sandy", "Loamy", "Clay"])
-crop = st.text_input("Enter Crop Type").lower()
+crop = st.selectbox("Select Crop Type", list(le_crop.classes_))
 city = st.text_input("Enter Your City")
 
 moisture = st.number_input("Moisture Level", min_value=0.0)
