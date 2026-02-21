@@ -32,6 +32,9 @@ def get_weather(city):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
 
+    st.write("Status Code:", response.status_code)
+    st.write("Response JSON:", response.json())
+
     if response.status_code != 200:
         return None
 
