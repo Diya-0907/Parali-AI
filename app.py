@@ -18,10 +18,7 @@ option = st.sidebar.selectbox(
 )
 
 # Load model once
-image_model = tf.keras.models.load_model(
-    "wheat_fungal_model.h5",
-    compile=False
-)
+image_model = tf.keras.models.load_model("wheat_fungal_model.keras")
 
 class_names = [
     "Healthy",
