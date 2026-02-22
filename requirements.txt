@@ -1,6 +1,8 @@
 streamlit
+tensorflow==2.15.0
 scikit-learn==1.6.1
 pandas
 numpy
 joblib
 requests
+Pillow
