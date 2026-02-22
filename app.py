@@ -19,12 +19,12 @@ option = st.sidebar.selectbox(
 
 
 class_names = [
-    "Healthy",
     "Brown Rust",
-    "Yellow Rust",
+    "Healthy",
     "Loose Smut",
+    "Mildew",
     "Septoria",
-    "Mildew"
+    "Yellow Rust"
 ]
 # -------------------------
 # 3️⃣ IMAGE PREPROCESSING FUNCTION
@@ -107,6 +107,9 @@ if option == "Disease Detection":
         processed_image = preprocess_image(image)
 
         prediction = image_model.predict(processed_image)
+
+        st.write("Raw Prediction Probabilities:", prediction)
+
         predicted_class = class_names[np.argmax(prediction)]
         confidence = np.max(prediction) * 100
 
