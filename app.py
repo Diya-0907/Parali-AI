@@ -49,7 +49,12 @@ soil = st.selectbox("Select Soil Type", ["Sandy", "Loamy", "Clay"])
 
 crop = st.text_input("Enter Crop Type (e.g., rice, maize)").lower()
 
-city = st.text_input("Enter Your City")
+north_cities = [
+    "Amritsar", "Ludhiana", "Patiala", "Jalandhar", "Bathinda",   # Punjab
+    "Karnal", "Hisar", "Kurukshetra", "Rohtak", "Panipat", "Ambala"  # Haryana
+]
+
+city = st.selectbox("Select Your District/City (Punjab & Haryana Only)", north_cities)
 
 moisture = st.number_input("Moisture Level", min_value=0.0)
 
