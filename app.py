@@ -88,3 +88,55 @@ if st.button("🔍 Predict Reuse Method"):
         prediction = model.predict(input_df)
 
         st.success(f"✅ Recommended Reuse Method: {prediction[0]}")
+
+        st.markdown("## 💰 Government Incentive & Cost Analysis")
+
+# State Selection (focused on Punjab & Haryana)
+state = st.selectbox("Select Your State", ["Punjab", "Haryana"])
+
+# Land Area Input
+area = st.number_input(
+    "Enter Land Area (in acres)",
+    min_value=0.5,
+    max_value=100.0,
+    value=1.0,
+    step=0.5
+)
+
+# Government Scheme Data (Sample Structured Dataset)
+govt_schemes = {
+    "Punjab": {
+        "incentive_per_acre": 1500,
+        "machine_subsidy_percent": 50,
+        "estimated_burning_fine_per_acre": 500
+    },
+    "Haryana": {
+        "incentive_per_acre": 1200,
+        "machine_subsidy_percent": 40,
+        "estimated_burning_fine_per_acre": 500
+    }
+}
+
+# Fetch Scheme Details
+scheme = govt_schemes[state]
+
+# Calculations
+total_incentive = scheme["incentive_per_acre"] * area
+burning_penalty_risk = scheme["estimated_burning_fine_per_acre"] * area
+
+# Optional Estimated Reuse Cost (basic assumption)
+estimated_reuse_cost_per_acre = 800
+total_reuse_cost = estimated_reuse_cost_per_acre * area
+
+# Net Financial Comparison
+net_advantage = total_incentive + burning_penalty_risk - total_reuse_cost
+
+# Display Results
+st.success(f"✅ Eligible Government Incentive: ₹{total_incentive:,.0f}")
+st.warning(f"⚠️ Estimated Burning Fine Risk: ₹{burning_penalty_risk:,.0f}")
+st.info(f"♻️ Estimated Reuse Implementation Cost: ₹{total_reuse_cost:,.0f}")
+
+if net_advantage > 0:
+    st.success(f"💸 By choosing reuse, you gain approximately ₹{net_advantage:,.0f} compared to burning.")
+else:
+    st.error(f"⚠️ Reuse may cost approximately ₹{abs(net_advantage):,.0f} more than burning under current assumptions.")
