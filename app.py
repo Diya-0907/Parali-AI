@@ -17,8 +17,6 @@ option = st.sidebar.selectbox(
     ["Disease Detection", "Reuse Recommendation"]
 )
 
-# Load model once
-image_model = tf.keras.models.load_model("wheat_fungal_model.keras")
 
 class_names = [
     "Healthy",
@@ -68,6 +66,27 @@ def get_weather(city):
     rainfall = data.get("rain", {}).get("1h", 0)
 
     return temperature, humidity, rainfall, wind_speed
+@st.cache_resource
+def load_image_model():
+    base_model = tf.keras.applications.MobileNetV2(
+        weights=None,
+        include_top=False,
+        input_shape=(224, 224, 3)
+    )
+
+    base_model.trainable = False
+
+    model = tf.keras.Sequential([
+        base_model,
+        tf.keras.layers.GlobalAveragePooling2D(),
+        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dense(6, activation='softmax')
+    ])
+
+    model.load_weights("wheat_weights.weights.h5")
+    return model
+
+image_model = load_image_model()
 
 # -------------------------
 # 4️⃣ STREAMLIT UI CODE
