@@ -9,6 +9,58 @@ from PIL import Image
 # MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(page_title="Parali AI", page_icon="🌾")
 
+import streamlit as st
+
+st.set_page_config(
+    page_title="Parali Agri-Tech AI",
+    page_icon="🌾",
+    layout="wide"
+)
+
+# Custom CSS
+st.markdown("""
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+html, body, [class*="css"]  {
+    font-family: 'Inter', sans-serif;
+}
+
+.stApp {
+    background-image: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.main {
+    background-color: rgba(255, 255, 255, 0.92);
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+h1, h2, h3 {
+    color: #1b5e20;
+}
+
+.stButton>button {
+    background-color: #2e7d32;
+    color: white;
+    border-radius: 8px;
+    height: 3em;
+    font-weight: 600;
+    border: none;
+}
+
+.stButton>button:hover {
+    background-color: #1b5e20;
+    color: white;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # -------------------------------
 # Sidebar Navigation
 # -------------------------------
