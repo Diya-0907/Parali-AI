@@ -19,13 +19,14 @@ option = st.sidebar.selectbox(
 
 
 class_names = [
-    "Brown Rust",
-    "Healthy",
-    "Loose Smut",
-    "Mildew",
-    "Septoria",
-    "Yellow Rust"
+    "BrownRust",   # 0
+    "Healthy",     # 1
+    "LooseSmut",   # 2
+    "Mildew",      # 3
+    "Septoria",    # 4
+    "YellowRust"   # 5
 ]
+
 # -------------------------
 # 3️⃣ IMAGE PREPROCESSING FUNCTION
 # -------------------------
@@ -69,22 +70,7 @@ def get_weather(city):
 
 @st.cache_resource
 def load_image_model():
-    base_model = tf.keras.applications.MobileNetV2(
-    weights="imagenet",
-    include_top=False,
-    input_shape=(224, 224, 3)
-)
-
-    base_model.trainable = False
-
-    model = tf.keras.Sequential([
-        base_model,
-        tf.keras.layers.GlobalAveragePooling2D(),
-        tf.keras.layers.Dropout(0.3),
-        tf.keras.layers.Dense(6, activation='softmax')
-    ])
-
-    model.load_weights("wheat_weights.weights.h5")
+    model = tf.keras.models.load_model("wheat_fungal_model_final.h5")
     return model
 
 image_model = load_image_model()
@@ -108,8 +94,6 @@ if option == "Disease Detection":
         processed_image = preprocess_image(image)
 
         prediction = image_model.predict(processed_image)
-
-        st.write("Raw Prediction Probabilities:", prediction)
 
         predicted_class = class_names[np.argmax(prediction)]
         confidence = np.max(prediction) * 100
