@@ -7,9 +7,7 @@ import numpy as np
 from PIL import Image
 
 # MUST BE FIRST STREAMLIT COMMAND
-st.set_page_config(page_title="Parali AI", page_icon="🌾")
 
-import streamlit as st
 
 st.set_page_config(
     page_title="Parali Agri-Tech AI",
@@ -44,38 +42,52 @@ h1, h2, h3 {
     color: #1b5e20;
 }
 
-.stButton>button {
-    background-color: #2e7d32;
-    color: white;
-    border-radius: 8px;
-    height: 3em;
+/* Navigation Card Buttons */
+div.stButton > button {
+    height: 80px;
+    font-size: 16px;
     font-weight: 600;
-    border: none;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    color: #1b5e20;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.stButton>button:hover {
-    background-color: #1b5e20;
-    color: white;
+div.stButton > button:hover {
+    background-color: #f1f8f4;
+    border: 1px solid #2e7d32;
+    color: #1b5e20;
 }
-
-st.markdown("""
-<h1 style='text-align:center;'>🌾 Parali Agri-Tech AI</h1>
-<p style='text-align:center; font-size:18px;'>
-AI Powered Crop Yield Prediction using Real-Time Weather Intelligence
-</p>
-<hr>
-""", unsafe_allow_html=True)
 
 </style>
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# Sidebar Navigation
+# Card Navigation (Main Page)
 # -------------------------------
-option = st.sidebar.selectbox(
-    "Select Module",
-    ["Disease Detection", "Reuse Recommendation", "Yield Prediction"]
-)
+
+st.markdown("## 🌾 Select Module")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    if st.button("🦠 Disease Detection", use_container_width=True):
+        st.session_state.page = "Disease Detection"
+
+with col2:
+    if st.button("♻ Reuse Recommendation", use_container_width=True):
+        st.session_state.page = "Reuse Recommendation"
+
+with col3:
+    if st.button("📊 Yield Prediction", use_container_width=True):
+        st.session_state.page = "Yield Prediction"
+
+# Default Page
+if "page" not in st.session_state:
+    st.session_state.page = "Disease Detection"
+
+option = st.session_state.page
 
 
 class_names = [
