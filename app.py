@@ -66,13 +66,14 @@ def get_weather(city):
     rainfall = data.get("rain", {}).get("1h", 0)
 
     return temperature, humidity, rainfall, wind_speed
+
 @st.cache_resource
 def load_image_model():
     base_model = tf.keras.applications.MobileNetV2(
-        weights=None,
-        include_top=False,
-        input_shape=(224, 224, 3)
-    )
+    weights="imagenet",
+    include_top=False,
+    input_shape=(224, 224, 3)
+)
 
     base_model.trainable = False
 
