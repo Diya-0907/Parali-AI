@@ -70,7 +70,23 @@ def get_weather(city):
 
 @st.cache_resource
 def load_image_model():
-    model = tf.keras.models.load_model("wheat_fungal_model_final.keras")
+    base_model = tf.keras.applications.MobileNetV2(
+        weights="imagenet",
+        include_top=False,
+        input_shape=(224, 224, 3)
+    )
+
+    base_model.trainable = False
+
+    model = tf.keras.Sequential([
+        base_model,
+        tf.keras.layers.GlobalAveragePooling2D(),
+        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dense(6, activation='softmax')
+    ])
+
+    model.load_weights("wheat_fungal.weights.h5")
+
     return model
 
 image_model = load_image_model()
