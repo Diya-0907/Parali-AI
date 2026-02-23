@@ -58,6 +58,14 @@ h1, h2, h3 {
     color: white;
 }
 
+st.markdown("""
+<h1 style='text-align:center;'>🌾 Parali Agri-Tech AI</h1>
+<p style='text-align:center; font-size:18px;'>
+AI Powered Crop Yield Prediction using Real-Time Weather Intelligence
+</p>
+<hr>
+""", unsafe_allow_html=True)
+
 </style>
 """, unsafe_allow_html=True)
 
