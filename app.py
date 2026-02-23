@@ -70,7 +70,7 @@ def get_weather(city):
 
 @st.cache_resource
 def load_image_model():
-    model = tf.keras.models.load_model("wheat_fungal_model_final.h5")
+    model = tf.keras.models.load_model("wheat_fungal_model_final.keras")
     return model
 
 image_model = load_image_model()
