@@ -14,7 +14,7 @@ st.set_page_config(page_title="Parali AI", page_icon="🌾")
 # -------------------------------
 option = st.sidebar.selectbox(
     "Select Module",
-    ["Disease Detection", "Reuse Recommendation"]
+    ["Disease Detection", "Reuse Recommendation", "Yield Prediction"]
 )
 
 
@@ -67,6 +67,13 @@ def get_weather(city):
     rainfall = data.get("rain", {}).get("1h", 0)
 
     return temperature, humidity, rainfall, wind_speed
+
+@st.cache_resource
+def load_yield_model():
+    return joblib.load("yield_model.pkl")
+
+yield_model = load_yield_model()
+
 
 @st.cache_resource
 def load_image_model():
@@ -209,3 +216,55 @@ elif option == "Reuse Recommendation":
         st.success(f"💸 By choosing reuse, you gain approximately ₹{net_advantage:,.0f} compared to burning.")
     else:
         st.error(f"⚠️ Reuse may cost approximately ₹{abs(net_advantage):,.0f} more than burning under current assumptions.")
+
+elif option == "Yield Prediction":
+
+    st.header("🌾 Crop Yield Prediction (Per Acre)")
+
+    crop = st.selectbox("Select Crop", ["Rice", "Wheat"])
+    season = st.selectbox("Select Season", ["Kharif", "Rabi"])
+    state = st.text_input("Enter State Name")
+    area = st.number_input("Enter Area (in hectare)", min_value=0.1)
+    fertilizer = st.number_input("Fertilizer Used (kg)", min_value=0.0)
+    pesticide = st.number_input("Pesticide Used (kg)", min_value=0.0)
+
+    if st.button("Predict Yield"):
+
+        input_df = pd.DataFrame([{
+            "crop": crop,
+            "season": season,
+            "state": state,
+            "area": area,
+            "fertilizer": fertilizer,
+            "pesticide": pesticide
+        }])
+
+        predicted_yield = yield_model.predict(input_df)[0]
+
+        # Convert tonnes/hectare → quintals/acre
+        yield_q_per_acre = (predicted_yield * 10) / 2.47
+
+        # Residue calculation
+        RPR = {"Rice": 1.5, "Wheat": 1.2}
+        yield_ton_per_acre = yield_q_per_acre / 10
+        residue = yield_ton_per_acre * RPR[crop]
+
+        # Revenue calculation (Approx MSP)
+        MSP = {"Rice": 2200, "Wheat": 2275}
+        revenue = yield_q_per_acre * MSP[crop]
+
+        # Yield Category
+        if yield_q_per_acre < 12:
+            category = "Low"
+        elif yield_q_per_acre < 20:
+            category = "Medium"
+        else:
+            category = "High"
+
+        st.success("Prediction Complete ✅")
+
+        st.write("### 📊 Results:")
+        st.write(f"🌾 Predicted Yield: {yield_q_per_acre:.2f} quintals/acre")
+        st.write(f"🌿 Estimated Residue: {residue:.2f} tons/acre")
+        st.write(f"💰 Estimated Revenue: ₹{revenue:,.2f} per acre")
+        st.write(f"📈 Yield Category: {category}")
