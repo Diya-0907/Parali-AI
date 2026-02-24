@@ -203,7 +203,6 @@ elif option == "Reuse Recommendation":
     st.markdown("AI-powered stubble reuse decision system")
 
     soil = st.selectbox("Select Soil Type", ["Sandy", "Loamy", "Clay"])
-
     crop = st.text_input("Enter Crop Type (e.g., rice, maize)").lower()
 
     north_cities = [
@@ -212,7 +211,6 @@ elif option == "Reuse Recommendation":
     ]
 
     city = st.selectbox("Select Your District/City (Punjab & Haryana Only)", north_cities)
-
     moisture = st.number_input("Moisture Level", min_value=0.0)
 
     st.divider()
@@ -226,67 +224,65 @@ elif option == "Reuse Recommendation":
         else:
             temperature, humidity, rainfall, wind_speed = weather
 
-        # ---- Weather Cards ----
+            # ---------------- WEATHER CARDS ---------------- #
 
-st.markdown(f"""
-<div style="
-    background-color: #ffffff;
-    padding: 18px 25px;
-    border-radius: 12px;
-    border-left: 6px solid #1976d2;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    margin-bottom: 12px;
-">
-    <h4 style="color:#0d47a1; margin:0;">
-        🌡 Temperature: {temperature} °C
-    </h4>
-</div>
-""", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div style="
+                background-color: #ffffff;
+                padding: 18px 25px;
+                border-radius: 12px;
+                border-left: 6px solid #1976d2;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                margin-bottom: 12px;">
+                <h4 style="color:#0d47a1; margin:0;">
+                    🌡 Temperature: {temperature} °C
+                </h4>
+            </div>
+            """, unsafe_allow_html=True)
 
-st.markdown(f"""
-<div style="
-    background-color: #ffffff;
-    padding: 18px 25px;
-    border-radius: 12px;
-    border-left: 6px solid #00acc1;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    margin-bottom: 12px;
-">
-    <h4 style="color:#006064; margin:0;">
-        💧 Humidity: {humidity} %
-    </h4>
-</div>
-""", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div style="
+                background-color: #ffffff;
+                padding: 18px 25px;
+                border-radius: 12px;
+                border-left: 6px solid #00acc1;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                margin-bottom: 12px;">
+                <h4 style="color:#006064; margin:0;">
+                    💧 Humidity: {humidity} %
+                </h4>
+            </div>
+            """, unsafe_allow_html=True)
 
-st.markdown(f"""
-<div style="
-    background-color: #ffffff;
-    padding: 18px 25px;
-    border-radius: 12px;
-    border-left: 6px solid #1565c0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    margin-bottom: 12px;
-">
-    <h4 style="color:#0d47a1; margin:0;">
-        🌧 Rainfall: {rainfall} mm
-    </h4>
-</div>
-""", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div style="
+                background-color: #ffffff;
+                padding: 18px 25px;
+                border-radius: 12px;
+                border-left: 6px solid #1565c0;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                margin-bottom: 12px;">
+                <h4 style="color:#0d47a1; margin:0;">
+                    🌧 Rainfall: {rainfall} mm
+                </h4>
+            </div>
+            """, unsafe_allow_html=True)
 
-st.markdown(f"""
-<div style="
-    background-color: #ffffff;
-    padding: 18px 25px;
-    border-radius: 12px;
-    border-left: 6px solid #546e7a;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
-">
-    <h4 style="color:#263238; margin:0;">
-        🌬 Wind Speed: {wind_speed} m/s
-    </h4>
-</div>
-""", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div style="
+                background-color: #ffffff;
+                padding: 18px 25px;
+                border-radius: 12px;
+                border-left: 6px solid #546e7a;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                margin-bottom: 20px;">
+                <h4 style="color:#263238; margin:0;">
+                    🌬 Wind Speed: {wind_speed} m/s
+                </h4>
+            </div>
+            """, unsafe_allow_html=True)
+
+            # ---------------- MODEL INPUT ---------------- #
 
             input_df = pd.DataFrame([{
                 "Soil_Type": soil,
@@ -301,7 +297,6 @@ st.markdown(f"""
             prediction = reuse_model.predict(input_df)
 
             st.success(f"✅ Recommended Reuse Method: {prediction[0]}")
-
     st.markdown("## 💰 Government Incentive & Cost Analysis")
 
     state = st.selectbox("Select Your State", ["Punjab", "Haryana"])
