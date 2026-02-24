@@ -226,10 +226,67 @@ elif option == "Reuse Recommendation":
         else:
             temperature, humidity, rainfall, wind_speed = weather
 
-            st.info(f"🌡 Temperature: {temperature} °C")
-            st.info(f"💧 Humidity: {humidity} %")
-            st.info(f"🌧 Rainfall: {rainfall} mm")
-            st.info(f"🌬 Wind Speed: {wind_speed} m/s")
+        # ---- Weather Cards ----
+
+st.markdown(f"""
+<div style="
+    background-color: #ffffff;
+    padding: 18px 25px;
+    border-radius: 12px;
+    border-left: 6px solid #1976d2;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 12px;
+">
+    <h4 style="color:#0d47a1; margin:0;">
+        🌡 Temperature: {temperature} °C
+    </h4>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div style="
+    background-color: #ffffff;
+    padding: 18px 25px;
+    border-radius: 12px;
+    border-left: 6px solid #00acc1;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 12px;
+">
+    <h4 style="color:#006064; margin:0;">
+        💧 Humidity: {humidity} %
+    </h4>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div style="
+    background-color: #ffffff;
+    padding: 18px 25px;
+    border-radius: 12px;
+    border-left: 6px solid #1565c0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 12px;
+">
+    <h4 style="color:#0d47a1; margin:0;">
+        🌧 Rainfall: {rainfall} mm
+    </h4>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div style="
+    background-color: #ffffff;
+    padding: 18px 25px;
+    border-radius: 12px;
+    border-left: 6px solid #546e7a;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+">
+    <h4 style="color:#263238; margin:0;">
+        🌬 Wind Speed: {wind_speed} m/s
+    </h4>
+</div>
+""", unsafe_allow_html=True)
 
             input_df = pd.DataFrame([{
                 "Soil_Type": soil,
