@@ -27,11 +27,11 @@ html, body, [class*="css"]  {
 
 .stApp {
     background: linear-gradient(
-        rgba(255, 255, 255, 0.88),
-        rgba(255, 255, 255, 0.88)
+        rgba(245, 248, 245, 0.95),
+        rgba(245, 248, 245, 0.95)
     ),
     url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-    
+
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -44,7 +44,8 @@ html, body, [class*="css"]  {
 }
 
 h1, h2, h3 {
-    color: #1b5e20;
+    color: #0d3b1e;
+    font-weight: 700;
 }
 
 /* Navigation Card Buttons */
