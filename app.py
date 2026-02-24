@@ -26,11 +26,15 @@ html, body, [class*="css"]  {
 }
 
 .stApp {
-    background-image: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.88),
+        rgba(255, 255, 255, 0.88)
+    ),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+    
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    background-opacity: 1.5;
 }
 
 .main {
