@@ -30,6 +30,7 @@ html, body, [class*="css"]  {
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+    background-opacity: 0.8;
 }
 
 .main {
